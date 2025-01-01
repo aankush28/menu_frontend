@@ -54,6 +54,7 @@ const MenuForm: React.FC<MenuFormProps> = ({
       console.log("Update Successful:", response.data);
     } catch (error) {
       console.error("Error updating menu item:", error);
+      alert("Update Failed"+error);
     }
   };
 
