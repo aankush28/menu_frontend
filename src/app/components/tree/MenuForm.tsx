@@ -4,9 +4,9 @@ import axios from "axios";
 // Define the type for form data
 interface FormData {
   id: string;
-  depth: string;
-  parentName: string;
+  depth: number;
   name: string;
+  parentName?: string;
 }
 
 interface MenuFormProps {
@@ -14,14 +14,16 @@ interface MenuFormProps {
   refreshTreeData: () => void;
 }
 
-const MenuForm: React.FC<MenuFormProps> = ({ selectedNode,refreshTreeData }) => {
+const MenuForm: React.FC<MenuFormProps> = ({
+  selectedNode,
+  refreshTreeData,
+}) => {
   const [formData, setFormData] = useState<FormData>({
     id: selectedNode.id,
     depth: selectedNode.depth,
     parentName: selectedNode.parentName,
     name: selectedNode.name,
   });
-
 
   useEffect(() => {
     setFormData({

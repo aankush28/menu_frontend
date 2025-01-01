@@ -9,6 +9,8 @@ interface Node {
   name: string;
   children: Node[];
   expanded?: boolean; // Track individual node expansion state
+  depth:number;
+  parentName?: string
 }
 
 const TreePage = () => {
@@ -64,14 +66,20 @@ const TreePage = () => {
         });
 
       setData((prevData) => addNode(prevData));
-    } catch (err: any) {
-      console.error("Error adding child node:", err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Error adding child node:", err.message);
+      } else {
+        console.error("An unknown error occurred while adding child node");
+      }
     }
   };
-
   // Function to handle node click
   const handleNodeClick = (node: Node) => {
-    setSelectedNode(node); // Set the selected node when clicked
+    setSelectedNode({
+      ...node,
+      parentName: node.parentName || "", // Provide default value for parentName
+    });
   };
 
   // Fetch tree data from the API
@@ -80,13 +88,16 @@ const TreePage = () => {
       const response = await axios.get("api/menu/tree"); // Local API route
       console.log(response.data); // Debugging
       setData(response.data);
-    } catch (err: any) {
-      console.error("Error fetching tree data:", err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error("Error fetching tree data:", err.message);
+      } else {
+        console.error("An unknown error occurred while fetching tree data");
+      }
     } finally {
       console.log("Fetching tree data completed.");
     }
   };
-
   // Fetch the tree data on initial render
   useEffect(() => {
     fetchTreeData();

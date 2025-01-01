@@ -30,6 +30,7 @@ const TreeNode: React.FC<{
       id: Date.now().toString(),
       name: newChildName,
       children: [],
+      depth: 0
     };
     addChild(node.id, newNode, node.depth);
     setNewChildName("");
