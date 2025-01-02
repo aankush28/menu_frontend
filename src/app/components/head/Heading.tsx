@@ -54,8 +54,8 @@ export const Heading = () => {
       <div className="inline-block relative w-full md:w-[349px] mt-4">
         <select className="block w-full appearance-none bg-[#F9FAFB] px-4 py-3 md:px-5 md:py-4 pr-10 rounded-[16px] text-[#475467] leading-tight focus:outline-none shadow-sm border-none">
           {data
-            .filter((val) => val.depth === 0)
-            .map((item) => (
+            .filter((value: { depth: number }) => value.depth === 0)
+            .map((item: { id: string | number; name: string }) => (
               <option key={item.id} value={item.name}>
                 {item.name}
               </option>
