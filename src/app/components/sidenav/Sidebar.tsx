@@ -1,21 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { createContext, useState, ReactNode } from "react";
-import logo from "../../../../public/svg-gobbler 1.png";
+import { createContext, useState } from "react";
 import { MdMenuOpen } from "react-icons/md";
 import { RiMenuUnfold3Line } from "react-icons/ri";
+import { SidebarContextType, SidebarItemProps, SidebarProps } from "@/types/sidenav.type";
+
 
 // Define the context and types
-interface SidebarContextType {
-  expanded: boolean;
-}
 
 const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
-
-interface SidebarProps {
-  children: ReactNode;
-}
 
 const Sidebar = ({ children }: SidebarProps) => {
   const [expanded, setExpanded] = useState<boolean>(true);
@@ -27,7 +21,7 @@ const Sidebar = ({ children }: SidebarProps) => {
           onClick={() => setExpanded((curr) => !curr)}
           className="text-[#101828] hover:bg-gray-100 rounded-lg z-10 absolute top-5 left-5 px-6 py-1"
         >
-            <RiMenuUnfold3Line className="w-5 h-6" />
+          <RiMenuUnfold3Line className="w-5 h-6" />
         </button>
       )}
       <div
@@ -36,17 +30,19 @@ const Sidebar = ({ children }: SidebarProps) => {
           borderRadius: "24px",
           height: "100vh",
           display: expanded ? "block" : "none",
-          width: 'auto',
+          width: "auto",
         }}
       >
         <nav className="h-full flex flex-col bg-[#101828] shadow-sm">
           <div className="p-7 pb-2 flex justify-between items-center">
             <Image
-              src={logo}
+              src="/image/logo.png"
               className={`overflow-hidden transition-all ${
                 expanded ? "w-22" : "w-0"
               }`}
               alt="Sidebar Logo"
+              width={100}
+              height={50}
             />
             <button
               onClick={() => setExpanded((curr) => !curr)}
@@ -76,19 +72,7 @@ const Sidebar = ({ children }: SidebarProps) => {
   );
 };
 
-interface SidebarItemProps {
-  icon: ReactNode;
-  text: string;
-  active?: boolean;
-  alert?: boolean;
-}
-
-export const SidebarItem = ({
-  icon,
-  text,
-  active,
-}: SidebarItemProps) => {
-
+export const SidebarItem = ({ icon, text, active }: SidebarItemProps) => {
   return (
     <li
       className={`
@@ -98,12 +82,8 @@ export const SidebarItem = ({
         rounded-[16px]
         w-full
         h-[48px]
-        ${
-          text==='Menus'&&"bg-[#9FF443]"
-        }
-        ${
-          text==='System'&&"text-[#FFFFFF]"
-        }
+        ${text === "Menus" && "bg-[#9FF443]"}
+        ${text === "System" && "text-[#FFFFFF]"}
         ${
           active
             ? "bg-gradient-to-tr from-indigo-200 to-indigo-100 text-indigo-800"
@@ -112,11 +92,7 @@ export const SidebarItem = ({
       `}
     >
       {icon}
-      <span
-        className={`overflow-hidden transition-all w-52 ml-3`}
-      >
-        {text}
-      </span>
+      <span className={`overflow-hidden transition-all w-52 ml-3`}>{text}</span>
     </li>
   );
 };

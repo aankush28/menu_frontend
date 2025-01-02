@@ -1,18 +1,9 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from "react";
 import axios from "axios";
+import { FormData, MenuFormProps } from "@/types/menu.types";
+
 
 // Define the type for form data
-interface FormData {
-  id: string;
-  depth: number;
-  name: string;
-  parentName?: string;
-}
-
-interface MenuFormProps {
-  selectedNode: FormData | never;
-  refreshTreeData: () => void;
-}
 
 const MenuForm: React.FC<MenuFormProps> = ({
   selectedNode,
@@ -54,7 +45,7 @@ const MenuForm: React.FC<MenuFormProps> = ({
       console.log("Update Successful:", response.data);
     } catch (error) {
       console.error("Error updating menu item:", error);
-      alert("Update Failed"+error);
+      alert("Update Failed" + error);
     }
   };
 

@@ -3,15 +3,7 @@ import React, { useEffect, useState } from "react";
 import MenuForm from "./MenuForm";
 import TreeNode from "./TreeNode";
 import axios from "axios";
-
-interface Node {
-  id: string;
-  name: string;
-  children: Node[];
-  expanded?: boolean; // Track individual node expansion state
-  depth:number;
-  parentName?: string
-}
+import { Node } from "@/types/tree.types";
 
 const TreePage = () => {
   const [data, setData] = useState<Node[]>([]);
@@ -141,7 +133,7 @@ const TreePage = () => {
           {/* Render the form if a node is selected */}
         </div>
       ) : (
-       <div>Loading...</div>
+        <div>Loading...</div>
       )}
       {selectedNode && (
         <MenuForm

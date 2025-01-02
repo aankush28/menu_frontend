@@ -1,18 +1,12 @@
-"use client"
+"use client";
+import { Node } from "@/types/tree.types";
 import React, { useEffect, useState, useRef } from "react";
 import { FaPlus, FaChevronDown, FaChevronRight, FaCheck } from "react-icons/fa";
-interface Node {
-  id: string;
-  name: string;
-  children: Node[];
-  expanded?: boolean; // Track individual node expansion state
-  depth:number;
-}
 
 const TreeNode: React.FC<{
   node: Node;
   updateNodeExpansion: (id: string, expanded: boolean) => void;
-  addChild: (parentId: string, newNode: Node, depth:number) => void;
+  addChild: (parentId: string, newNode: Node, depth: number) => void;
   onNodeClick: (node: Node) => void;
 }> = ({ node, updateNodeExpansion, addChild, onNodeClick }) => {
   const [newChildName, setNewChildName] = useState("");
@@ -30,7 +24,7 @@ const TreeNode: React.FC<{
       id: Date.now().toString(),
       name: newChildName,
       children: [],
-      depth: 0
+      depth: 0,
     };
     addChild(node.id, newNode, node.depth);
     setNewChildName("");

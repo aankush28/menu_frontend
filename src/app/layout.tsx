@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 // Components
-import Sidebar, { SidebarItem } from "./components/common/Sidebar";
+import Sidebar, { SidebarItem } from "./components/sidenav/Sidebar";
 import { Folder, HelpCircleIcon, LogOutIcon, SettingsIcon } from "lucide-react";
 
 // Fonts
