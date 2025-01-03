@@ -3,7 +3,7 @@ import React from "react";
 
 const Breadcrumb = ({ icon, name, link }: { icon: React.ReactNode; name: string; link: string }) => {
   return (
-    <div>
+    <div className="py-6">
       {" "}
       <div className="text-gray-600 flex items-center gap-2">
         <ol className="list-reset flex items-center">
