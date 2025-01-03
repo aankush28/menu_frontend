@@ -3,9 +3,10 @@ import { MENU_ITEM_API, TREE_URL } from "@/constant/constant";
 export interface MenuItem {
   id: string;
   name: string;
-  parentId: string | null;
+  parentId :string;
   children: MenuItem[];
-  expanded: boolean;
+  expand: boolean;
+  depth: number;
 }
 
 export const getTreeData = async () => {

@@ -4,5 +4,13 @@ export interface Node {
     children: Node[];
     expanded?: boolean; 
     depth:number;
-    parentName?: string
+  }
+
+  export interface IParent {
+    name: string;
+  }
+
+  export interface MenuItemExpand{
+    id: string;
+    expand: boolean;
   }

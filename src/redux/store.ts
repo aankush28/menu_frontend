@@ -1,8 +1,13 @@
-import { configureStore } from "@reduxjs/toolkit";
-import subheadingReducer from "./subheadingSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import menuReducer from './menuSlice'; // Import the menu slice
 
-export const store = configureStore({
+const store = configureStore({
   reducer: {
-    subheading: subheadingReducer, // your subheading reducer
+    menu: menuReducer,
   },
 });
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;

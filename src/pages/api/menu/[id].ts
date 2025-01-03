@@ -10,16 +10,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       // Get a single menu item by ID
       const response = await axios.get(`${MENU_ITEM_API}/${id}`);
       res.status(200).json(response.data);
-    } else if (req.method === 'PATCH') {
+    } else if (req.method === 'PUT') {
       // Update a menu item by ID
-      const response = await axios.patch(`${MENU_ITEM_API}/${id}`, req.body);
+      const response = await axios.put(`${MENU_ITEM_API}/${id}`, req.body);
       res.status(200).json(response.data);
     } else if (req.method === 'DELETE') {
       // Delete a menu item by ID
       const response = await axios.delete(`${MENU_ITEM_API}/${id}`);
       res.status(200).json(response.data);
     } else {
-      res.setHeader('Allow', ['GET', 'PATCH', 'DELETE']);
+      res.setHeader('Allow', ['GET', 'PUT', 'DELETE']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
     }
   } catch (error: unknown) {

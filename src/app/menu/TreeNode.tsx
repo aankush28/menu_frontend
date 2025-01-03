@@ -1,33 +1,32 @@
 "use client";
-import { Node } from "@/types/tree.types";
+import { MenuItem } from "@/lib/data";
+import { NewMenuItem } from "@/types/menu.types";
 import React, { useEffect, useState, useRef } from "react";
 import { FaPlus, FaChevronDown, FaChevronRight, FaCheck } from "react-icons/fa";
 
 const TreeNode: React.FC<{
-  node: Node;
+  node: MenuItem;
   updateNodeExpansion: (id: string, expanded: boolean) => void;
-  addChild: (parentId: string, newNode: Node, depth: number) => void;
-  onNodeClick: (node: Node) => void;
+  addChild: (newMenuItem : NewMenuItem) => void;
+  onNodeClick: (node: MenuItem) => void;
 }> = ({ node, updateNodeExpansion, addChild, onNodeClick }) => {
-  const [newChildName, setNewChildName] = useState("");
+  const [newNode, setNewNode] = useState("");
   const [showInput, setShowInput] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const inputRef = useRef<HTMLDivElement>(null);
 
   const toggleExpand = () => {
-    updateNodeExpansion(node.id, !node.expanded);
+    updateNodeExpansion(node.id, !node.expand);
   };
 
   const handleAddChild = () => {
-    if (newChildName.trim() === "") return;
-    const newNode: Node = {
-      id: Date.now().toString(),
-      name: newChildName,
-      children: [],
-      depth: 0,
-    };
-    addChild(node.id, newNode, node.depth);
-    setNewChildName("");
+    if (newNode.trim() === "") return;
+    addChild({
+      name: newNode,
+      depth : node.depth + 1,
+      parentId: node.id,
+    });
+    setNewNode("");
     setShowInput(false);
   };
 
@@ -38,7 +37,7 @@ const TreeNode: React.FC<{
         inputRef.current &&
         !inputRef.current.contains(event.target as Element)
       ) {
-        if (newChildName.trim() === "") {
+        if (newNode.trim() === "") {
           setShowInput(false); // Close input if no value
         }
       }
@@ -48,7 +47,7 @@ const TreeNode: React.FC<{
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [newChildName]);
+  }, [newNode]);
 
   return (
     <div className="pl-4 border-l border-gray-300">
@@ -59,7 +58,7 @@ const TreeNode: React.FC<{
       >
         {node?.children?.length > 0 && (
           <button onClick={toggleExpand}>
-            {node.expanded ? (
+            {node.expand ? (
               <FaChevronDown size={12} />
             ) : (
               <FaChevronRight size={12} />
@@ -85,8 +84,8 @@ const TreeNode: React.FC<{
         <div ref={inputRef} className="pl-6 flex items-center">
           <input
             type="text"
-            value={newChildName}
-            onChange={(e) => setNewChildName(e.target.value)}
+            value={newNode}
+            onChange={(e) => setNewNode(e.target.value)}
             placeholder="Add new heading..."
             className="text-sm bg-transparent outline-none text-[14px]"
             autoFocus
@@ -99,7 +98,7 @@ const TreeNode: React.FC<{
           </button>
         </div>
       )}
-      {node.expanded && (
+      {node.expand && (
         <div className="pl-4">
           {node?.children?.map((child) => (
             <TreeNode

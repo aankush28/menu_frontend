@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-function Breadcrumb({ icon, name, link }: { icon: React.ReactNode; name: string; link: string }) {
+const Breadcrumb = ({ icon, name, link }: { icon: React.ReactNode; name: string; link: string }) => {
   return (
     <div>
       {" "}
