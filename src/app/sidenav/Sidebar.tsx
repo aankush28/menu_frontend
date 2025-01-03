@@ -18,11 +18,12 @@ const Sidebar = ({ children }: SidebarProps) => {
     <>
       {!expanded && (
         <button
-          onClick={() => setExpanded((curr) => !curr)}
-          className="text-[#101828] hover:bg-gray-100 rounded-lg z-10 absolute top-5 left-5 px-6 py-1"
-        >
-          <RiMenuUnfold3Line className="w-5 h-6" />
-        </button>
+        onClick={() => setExpanded((curr) => !curr)}
+        className="text-[#101828] hover:bg-gray-100 rounded-lg z-10 absolute top-5 left-4 mx-2 sm:mx-8"
+      >
+        <RiMenuUnfold3Line className="w-6 h-5" />
+      </button>
+      
       )}
       <div
         className="flex flex-col p-3 bg-[#101828] md:w-1/4"
